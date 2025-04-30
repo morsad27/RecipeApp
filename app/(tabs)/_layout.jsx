@@ -1,48 +1,39 @@
 import { Tabs } from "expo-router";
 import { Image, View } from "react-native";
 
-export default function layout() {
+export default function Layout() {
   return (
     <Tabs
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
         tabBarActiveTintColor: "#ffffff",
         tabBarInactiveTintColor: "#ED541C",
-        borderRadius: 50,
         tabBarStyle: {
           borderRadius: 50,
-          paddingTop: 15,
-          height: 80,
+          paddingTop: 13,
+          marginHorizontal: 100,
+          height: 55,
           backgroundColor: "#ffffff",
           position: "absolute",
           bottom: 50,
           left: 0,
           right: 0,
           borderWidth: 2,
-          marginHorizontal: 90,
-        },
-        tabBarLabelStyle: {
-          fontSize: 16,
-          fontFamily: "Segoe UI",
-          fontWeight: "bold",
-          paddingTop: 5,
         },
         tabBarIcon: ({ focused, color }) => (
-          <View style={{ alignItems: "center" }}>
-            {/* Line  */}
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
             {focused && (
               <View
                 style={{
-                  height: 80,
-                  width: 80,
+                  height: 55,
+                  width: 55,
                   backgroundColor: "#ED541C",
-                  borderRadius: 50,
-                  marginBottom: 5,
-                  marginBottom: -60
+                  borderRadius: 35,
+                  position: "absolute",
+                  top: -25,
                 }}
               />
             )}
-            {/*tab icon */}
             <Image
               source={
                 route.name === "home"
@@ -51,7 +42,12 @@ export default function layout() {
                   ? require("../../assets/images/favoriteicon.png")
                   : require("../../assets/images/profileicon.png")
               }
-              style={{ width: 50, height: 50, tintColor: color }}
+              style={{
+                width: 30,
+                height: 30,
+                tintColor: color,
+                marginTop: -15
+              }}
             />
           </View>
         ),
@@ -60,22 +56,19 @@ export default function layout() {
       <Tabs.Screen
         name="home"
         options={{
-          headershown: true,
-          title: "Home",
+          headerShown: false,
         }}
       />
       <Tabs.Screen
         name="favorite"
         options={{
-          headershown: true,
-          title: "Favorite",
+          headerShown: false,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          headershown: true,
-          title: "Profile",
+          headerShown: false,
         }}
       />
     </Tabs>
