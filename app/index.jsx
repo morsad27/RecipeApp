@@ -12,10 +12,10 @@ import {
 import auth from "@react-native-firebase/auth";
 
 const index = () => {
+
+
   const signUp = () => {
-    auth()
-      .createUserWithEmailAndPassword("Email", "Password")
-      .then(() => {
+    auth().createUserWithEmailAndPassword("testEmail@gmail.com", "Password").then(() => {
         Alert.alert("Signup Successful!");
       })
       .catch((err) => {
