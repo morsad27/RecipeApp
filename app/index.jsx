@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { defaultStyles } from "../constants/Styles";
 import {
+  Alert,
   Image,
   StyleSheet,
   Text,
@@ -8,8 +9,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import auth from "@react-native-firebase/auth";
 
 export default function Index() {
+  const signUp = () => {
+    auth()
+      .createUserWithEmailAndPassword("Email", "Password")
+      .then(() => {
+        Alert.alert("Signup Successful!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -42,14 +54,14 @@ export default function Index() {
         />
       </View>
       <View style={styles.row}>
-        <Text style={styles.greyText}> Don't have an account? </Text>
-        <Text style={styles.blueText}>Signup</Text>
+        <Text style={styles.greyText}>Already have an account? </Text>
+        <Text style={styles.blueText}>Login</Text>
       </View>
       <TouchableOpacity
-        // onPress={signIn}
+        onPress={signUp}
         style={[defaultStyles.btn, styles.btnPrimary]}
       >
-        <Text style={styles.btnPrimaryText}>Login</Text>
+        <Text style={styles.btnPrimaryText}>Signup</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[defaultStyles.btn, styles.btnDark]}>
@@ -81,7 +93,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignSelf: "center",
-    paddingTop: "10%"
+    paddingTop: "10%",
   },
   logo: {
     alignSelf: "center",
