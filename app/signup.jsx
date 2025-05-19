@@ -1,3 +1,4 @@
+//signup
 import { Ionicons } from "@expo/vector-icons";
 import { defaultStyles } from "../constants/Styles";
 import {
@@ -13,77 +14,82 @@ import auth from "@react-native-firebase/auth";
 import { useState } from "react";
 import { router } from "expo-router";
 
-const Login = () => {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const signIn = () => {
+  const register = () => {
     auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((res) => {
-        console.log(res);
-        Alert.alert("Login Successful!");
-        // router.replace("/(tabs)/home");
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        Alert.alert("Signup Successful!");
+        router.replace("/(tabs)/home")
       })
       .catch((err) => {
-        console.log(err);
-        Alert.alert(err.nativeErrorMessage);
+        console.log(err.message);
+        Alert.alert(err.message)
       });
   };
 
-  const register = () => {
+  const login = () => {
     router.replace("/");
-  };
-
+  }
   return (
     <View style={styles.container}>
       <View style={styles.row}>
+        {/* <Image
+          source={require("../assets/images/chef.png")}
+          style={styles.icon}
+        /> */}
         <Text style={styles.textLogin}>RecipeRealm</Text>
       </View>
       <Image
         source={require("../assets/images/logo.png")}
         style={styles.logo}
       />
-      <Text style={styles.text}>Welcome back</Text>
+      <Text style={styles.text}>Create you account</Text>
       <View style={{ marginBottom: 20 }}>
         <TextInput
-          autoCapitalize="none"
           placeholder="Email"
           style={styles.inputField}
           value={email}
           onChangeText={setEmail}
         />
         <TextInput
-          autoCapitalize="none"
           placeholder="Password"
           style={styles.inputField}
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
+        <TextInput
+          placeholder="Comfirm Password"
+          style={styles.inputField}
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+        />
       </View>
       <View style={styles.row}>
-        <Text style={styles.greyText}> Don't have an account? </Text>
-        <Text style={styles.blueText} onPress={register}>
-          Signup
-        </Text>
+        <Text style={styles.greyText}>Already have an account? </Text>
+        <Text style={styles.blueText} onPress={login}>Login</Text>
       </View>
-
       <TouchableOpacity
-        onPress={signIn}
+        onPress={register}
         style={[defaultStyles.btn, styles.btnPrimary]}
       >
-        <Text style={styles.btnPrimaryText}>Login</Text>
+        <Text style={styles.btnPrimaryText}>Signup</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[defaultStyles.btn, styles.btnDark]}>
-        <Text style={styles.btnDarkText}>Continue with Google</Text>
-      </TouchableOpacity>
+      {/* <TouchableOpacity style={[defaultStyles.btn, styles.btnDark]}>
+        <Text style={styles.btnDarkText}> Continue with Google </Text>
+      </TouchableOpacity> */}
     </View>
   );
 };
 
-export default Login;
+export default Signup;
 
 const styles = StyleSheet.create({
   container: {
