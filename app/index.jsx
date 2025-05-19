@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import auth from "@react-native-firebase/auth";
 
-export default function Index() {
+const index = () => {
   const signUp = () => {
     auth()
       .createUserWithEmailAndPassword("Email", "Password")
@@ -69,7 +69,9 @@ export default function Index() {
       </TouchableOpacity>
     </View>
   );
-}
+};
+
+export default index;
 
 const styles = StyleSheet.create({
   container: {
