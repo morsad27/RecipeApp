@@ -38,10 +38,6 @@ const Signup = () => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        {/* <Image
-          source={require("../assets/images/chef.png")}
-          style={styles.icon}
-        /> */}
         <Text style={styles.textLogin}>RecipeRealm</Text>
       </View>
       <Image
@@ -63,13 +59,6 @@ const Signup = () => {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <TextInput
-          placeholder="Comfirm Password"
-          style={styles.inputField}
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry
-        />
       </View>
       <View style={styles.row}>
         <Text style={styles.greyText}>Already have an account? </Text>
@@ -81,10 +70,6 @@ const Signup = () => {
       >
         <Text style={styles.btnPrimaryText}>Signup</Text>
       </TouchableOpacity>
-
-      {/* <TouchableOpacity style={[defaultStyles.btn, styles.btnDark]}>
-        <Text style={styles.btnDarkText}> Continue with Google </Text>
-      </TouchableOpacity> */}
     </View>
   );
 };
