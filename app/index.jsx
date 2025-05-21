@@ -9,9 +9,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import auth from "@react-native-firebase/auth";
 import { useEffect, useState } from "react";
 import { router } from "expo-router";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithCredential,
+} from "@react-native-firebase/auth";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 
 const index = () => {
@@ -21,30 +25,35 @@ const index = () => {
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
-        "701124826277-55fipficf2pa0rcfep62rbhf24islop5.apps.googleusercontent.com",
+        "701124826277-pc8ajg2bd3nla9r3n2n7famdb5drn5ff.apps.googleusercontent.com",
     });
   }, []);
 
   async function onGoogleButtonPress() {
-    try {
-      await GoogleSignin.hasPlayServices({
-        showPlayServicesUpdateDialog: true,
-      });
-      const { idToken } = await GoogleSignin.signIn();
+  // Check if your device supports Google Play
+  await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+  // Get the users ID token
+  const signInResult = await GoogleSignin.signIn();
 
-      if (!idToken) throw new Error("Google Sign-In failed, no idToken.");
-
-      const googleCredential = GoogleAuthProvider.credential(idToken);
-      await signInWithCredential(getAuth(), googleCredential);
-      router.replace("/(tabs)/home");
-    } catch (err) {
-      console.error("Google Sign-In Error:", err.message);
-      Alert.alert("Google Login failed", err.message);
-    }
+  // Try the new style of google-sign in result, from v13+ of that module
+  idToken = signInResult.data?.idToken;
+  if (!idToken) {
+    // if you are using older versions of google-signin, try old style result
+    idToken = signInResult.idToken;
+  }
+  if (!idToken) {
+    throw new Error('No ID token found');
   }
 
+  // Create a Google credential with the token
+  const googleCredential = GoogleAuthProvider.credential(signInResult.data.idToken);
+
+  // Sign-in the user with the credential
+  return signInWithCredential(getAuth(), googleCredential);
+}
+
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged((user) => {
+    const unsubscribe = getAuth().onAuthStateChanged((user) => {
       if (user) {
         router.replace("/(tabs)/home");
       }
@@ -53,7 +62,7 @@ const index = () => {
   }, []);
 
   const signIn = () => {
-    auth()
+    getAuth()
       .signInWithEmailAndPassword(email, password)
       .then((res) => {
         console.log(res);
