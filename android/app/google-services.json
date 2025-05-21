@@ -12,7 +12,20 @@
           "package_name": "com.morsad.recipeapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "701124826277-gvnshu7r1eetfqv09u5rodqmda4mkbuu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.morsad.recipeapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "701124826277-55fipficf2pa0rcfep62rbhf24islop5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBznDvL1s-O0D_0108o03fqWJ54FqQK6KY"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701124826277-55fipficf2pa0rcfep62rbhf24islop5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
